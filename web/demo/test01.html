@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.bootcss.com/vue/2.5.17/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li v-for="book in books">{{book.name}}</li>
+  </ul>
+  <ul>
+    <li v-for="z in zhihu">{{z.id}}</li>
+  </ul>
+  <button @click="zhihuSort">排序</button>
+  <table>
+    <tr v-for="(z, index) in zhihu">
+      <td>{{index+1}}</td>
+      <td>{{z.id}}</td>
+      <td>{{z.title}}</td>
+      <td>{{z.images}}</td>
+    </tr>
+  </table>
+  <h1>{{time | formatDate}}</h1>
+  <p v-if="show">显示文本</p>
+  <button v-on:click="handleClick">点击隐藏</button>
+  <p v-if="show">显示文本</p>
+  <button @click="handleClick">点击隐藏</button>
+  <p>{{reveTest}}</p>
+  <input v-model="input">
+  <p>键盘输入:{{input}}</p>
+  <input type="radio" v-model="p" value="html" id="html">
+  <label for="html">HTML</label>
+  <br>
+  <input type="radio" v-model="p" value="java" id="java">
+  <label for="html">JAVA</label>
+  <br>
+  <input type="radio" v-model="p" value="css" id="css">
+  <label for="html">CSS</label>
+  <p>选择项:{{p}}</p>
+</div>
+</body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      books: [],
+      time: new Date(),
+      show: true,
+      text: 'CDN的全称是Content Delivery Network，即内容分发网络。',
+      zhihu: [],
+      input: '',
+      p: 'java'
+    },
+    mounted: function () {
+      var _this = this;
+      setInterval(function () {
+        _this.time = new Date()
+        // _this.zhihu.reverse()
+      }, 100);
+      this.books = [
+        {name: '<books01>'},
+        {name: '<books01>'},
+        {name: '<books01>'},
+        {name: '<books01>'},
+      ];
+      var json_str = '{"date":"20181025","stories":[{"images":["https:\\/\\/pic4.zhimg.com\\/v2-f44c871afc60a4bff60a0fbdc93dd2bf.jpg"],"type":0,"id":9699543,"ga_prefix":"102510","title":"生命啊，就像打麻将"},{"images":["https:\\/\\/pic4.zhimg.com\\/v2-1f89cbbc34e0ad97e23c191aafc42e57.jpg"],"type":0,"id":9699244,"ga_prefix":"102509","title":"让支付宝用户有难同当的「相互保」，真的靠谱吗？"},{"images":["https:\\/\\/pic1.zhimg.com\\/v2-d06aba189e0414b754c79e880c9bbf30.jpg"],"type":0,"id":9699336,"ga_prefix":"102508","title":"如果要进行星际殖民，哪个恒星可以成为下一个太阳？"},{"images":["https:\\/\\/pic2.zhimg.com\\/v2-2d84eed448e8cfebc26d8a2d8aa95a6d.jpg"],"type":0,"id":9699440,"ga_prefix":"102507","title":"用洗面奶洗完脸，皮肤摸起来滑腻得……像没洗净一样"},{"images":["https:\\/\\/pic1.zhimg.com\\/v2-c7a57ad07f5da1a2b2ef45e55c94f8e4.jpg"],"type":0,"id":9699370,"ga_prefix":"102506","title":"瞎扯 · 如何正确地吐槽"}],"top_stories":[{"image":"https:\\/\\/pic1.zhimg.com\\/v2-8720bb5a80d91125064a7ee219b57c68.jpg","type":0,"id":9699543,"ga_prefix":"102510","title":"生命啊，就像打麻将"},{"image":"https:\\/\\/pic3.zhimg.com\\/v2-d5fffdb201c94a968bcea286e857bda6.jpg","type":0,"id":9699244,"ga_prefix":"102509","title":"让支付宝用户有难同当的「相互保」，真的靠谱吗？"},{"image":"https:\\/\\/pic1.zhimg.com\\/v2-99bddca5d08cd5924ff07fbae8163a1c.jpg","type":0,"id":9699419,"ga_prefix":"102420","title":"马化腾提问：未来十年哪些基础科学突破会影响互联网科技产业？"},{"image":"https:\\/\\/pic1.zhimg.com\\/v2-0ae5c9165f2edd4ddecbb345812fcb5c.jpg","type":0,"id":9699306,"ga_prefix":"102415","title":"云南白药含有处方药成分，「中药牙膏」止血并不靠中药"},{"image":"https:\\/\\/pic2.zhimg.com\\/v2-866c46ed24b0566da3f06ac9aa3384ad.jpg","type":0,"id":9699382,"ga_prefix":"102407","title":"iPhone XR 上手体验：跑马的边框，耐用的电池……真香？"}]}';
+      var json = JSON.parse(json_str);
+      this.zhihu = json.stories
+    },
+    filters: {
+      formatDate: function (value) {
+        var date = new Date(value);
+        return date.getSeconds();
+      }
+    },
+    methods: {
+      handleClick: function () {
+        this.show == true ? this.show = false : this.show = true;
+      },
+      zhihuSort: function () {
+        this.zhihu.reverse()
+      }
+    },
+    computed: {
+      reveTest: function () {
+        return this.text.split('C');
+      }
+    }
+  });
+</script>
+</html>

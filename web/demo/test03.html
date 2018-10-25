@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test03</title>
+  <script src="https://cdn.bootcss.com/vue/2.5.17/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <my></my>
+</div>
+</body>
+<script>
+  Vue.component('my', {
+    template: '<div>this is my component {{date}}</div>',
+    mounted: function () {
+      var _this = this;
+      setInterval(function () {
+        _this.date = new Date().getMilliseconds();
+      }, 100)
+    },
+    data: function () {
+      return {
+        date: new Date()
+      };
+    }
+  });
+  var app = new Vue({
+    el: '#app',
+    data: {},
+  });
+</script>
+</html>

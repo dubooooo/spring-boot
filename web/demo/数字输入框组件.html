@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数字输入框组件</title>
+  <script src="https://cdn.bootcss.com/vue/2.5.17/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <input-number v-module="value" :max="10" :min="0"></input-number>
+</div>
+</body>
+<script type="text/x-template" id="t01">
+  <div class="input-number">
+    <input type="text" :value="currentValue" @change="handleChange">
+    <button @click="handleDown" :disabled="currentValue <= min">-</button>
+    <button @click="handleUp">+</button>
+  </div>
+</script>
+<script>
+  Vue.component('input-number', {
+    template: '#t01',
+    props: {
+      max: {
+        type: Number,
+        default: Infinity
+      },
+      min: {
+        type: Number,
+        default: -Infinity
+      },
+      value: {
+        type: Number,
+        default: 0
+      }
+    },
+    data: function () {
+      return {
+        currentValue: this.value
+      }
+    },
+    watch:
+      {
+        currentValue: function (val) {
+          this.$emit('input', val);
+          this.$emit('on-change', val);
+        }
+        ,
+        value: function (val) {
+          this.updateValue(val);
+        }
+      }
+    ,
+    methods: {
+      updateValue: function (val) {
+        if (val > this.max) {
+          val = this.max;
+        }
+        if (val < this.max) {
+          val = this.max;
+        }
+        this.currentValue = val;
+      }
+      ,
+      handleDown: function () {
+        this.currentValue = this.currentValue - 1;
+      }
+      ,
+      handleUp: function () {
+        this.currentValue = this.currentValue + 1;
+      },
+      handleChange: function () {
+
+      }
+    },
+    mounted: function () {
+      this.updateValue(this.value);
+    }
+  })
+  var app = new Vue({
+    el: '#app',
+    data: {
+      value: 5
+    }
+  });
+</script>
+</html>

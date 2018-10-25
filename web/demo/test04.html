@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test04</title>
+  <script src="https://cdn.bootcss.com/vue/2.5.17/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <component :is="view"></component>
+  <button @click="change('va')">切换A组件</button>
+  <button @click="change('vb')">切换B组件</button>
+  <button @click="change('vc')">切换C组件</button>
+</div>
+</body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      view: 'va'
+    },
+    components: {
+      va: {
+        template: '<div>这是A组件</div>'
+      },
+      vb: {
+        template: '<div>这是B组件</div>'
+      },
+      vc: {
+        template: '<div>这是C组件</div>'
+      },
+    },
+    methods: {
+      change: function (v) {
+        this.view = v;
+      }
+    }
+  });
+</script>
+</html>
